@@ -7,21 +7,21 @@ import ContactCTA from '../../components/ContactCTA.astro';
 import PortfolioPreview from '../../components/PortfolioPreview.astro';
 import Hero from '../../components/Hero.astro';
 import Grid from '../../components/Grid.astro';
-import SubmitWord from "../../components/SubmitWord"
+import ListWords from "../../components/ListWords"
 ---
 
 <BaseLayout
-	title="Submit a word"
-	description="Submit a word to be judged in the Mcd79 Minimal Turing Experiment"
+	title="Judge the words"
+	description="For existing submissions, judge which ones you think are human or AI generated."
 >
 	<div class="stack gap-20">
 		<main class="wrapper stack gap-8">
 			<Hero
-				title="Submit a word"
-				tagline="To make this experiment work, we need your help. Submit a word below to be judged both by other humans and AI."
+				title="Judge the words"
+				tagline="For existing submissions, judge which ones you think are human or AI generated"
 				align="start"
 			/>
-			<SubmitWord client:load />
+			<ListWords client:load />
 		</main>
 	</div>
 </BaseLayout>
