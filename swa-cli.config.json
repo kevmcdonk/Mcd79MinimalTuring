@@ -4,7 +4,7 @@
     "mcd79-minimal-turing": {
       "appLocation": "Mcd79MinimalTuringSite",
       "apiLocation": "Mcd79MinimalTuringSite/api",
-      "outputLocation": ".\\Mcd79MinimalTuringSite\\dist",
+      "outputLocation": "Mcd79MinimalTuringSite/dist",
       "apiLanguage": "node",
       "apiVersion": "18",
       "appBuildCommand": "npm run build",

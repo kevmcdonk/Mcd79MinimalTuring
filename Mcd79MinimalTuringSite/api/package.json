@@ -2,13 +2,13 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/src/functions/*.js",
+  "main": "src/index.ts",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "clean": "rimraf dist",
     "prestart": "npm run clean && npm run build",
-    "start": "func host start",
+    "start": "func start --verbose",
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {

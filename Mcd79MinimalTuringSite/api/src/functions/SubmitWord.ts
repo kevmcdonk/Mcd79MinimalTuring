@@ -9,7 +9,7 @@ export async function SubmitWord(request: HttpRequest, context: InvocationContex
 
     const name = request.query.get('name') || await request.text() || 'world';
     context.log(` "${name}"`);
-    return { body: `{"message":"Hello, bob!"}` };
+    return { body: `{"message":"Added word - thanks!"}` };
 };
 
 app.http('SubmitWord', {
