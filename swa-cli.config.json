@@ -8,7 +8,7 @@
       "apiLanguage": "node",
       "apiVersion": "18",
       "appBuildCommand": "npm run build",
-      "apiBuildCommand": "npm run build",
+      "apiBuildCommand": "dotnet build /property:GenerateFullPaths=true /consoleloggerparameters:NoSummary",
       "run": "npm run dev",
       "appDevserverUrl": "http://localhost:4321"
     }
