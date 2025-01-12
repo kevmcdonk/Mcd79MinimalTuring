@@ -6,14 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = FunctionsApplication.CreateBuilder(args);
 
 builder.ConfigureFunctionsWebApplication();
-/*builder.Services.AddSingleton(x =>
-            {
-                string connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage") 
-                                           ?? throw new InvalidOperationException("AzureWebJobsStorage environment variable is not set.");
-                return new BlobServiceClient(connectionString);
-            });
-
-*/
 
 // Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4.
 // builder.Services

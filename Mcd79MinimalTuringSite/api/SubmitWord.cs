@@ -19,7 +19,7 @@ namespace Mcd79.MinimalTuring.Functions
         }
 
         [Function("SubmitWord")]
-        [BlobOutput("humanwords/result-{DateTime:yyyyMMdd-hhmmss}.txt", Connection = "AzureWebJobsStorage")]
+        [BlobOutput("humanwords/result-{DateTime:yyyyMMdd-hhmmss}.txt", Connection = "HumanWordsStorageConnectionAppSetting")]
         public async Task<string> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req
         )
