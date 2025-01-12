@@ -8,5 +8,11 @@
             },
             "enableLiveMetricsFilters": true
         }
+    },
+    "extensions": {
+        "blobs": {
+            "maxDegreeOfParallelism": 4,
+            "poisonBlobThreshold": 1
+        }
     }
 }
