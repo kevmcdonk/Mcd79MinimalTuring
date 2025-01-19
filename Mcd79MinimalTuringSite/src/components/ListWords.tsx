@@ -1,15 +1,21 @@
 import { useState, useEffect } from "preact/hooks";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function ListWords() {
   const [responseMessage, setResponseMessage] = useState<any[]>([]);
+  const [hoveredItemId, setHoveredItemId] = useState<string | null>("not set");
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/api/ListHumanResults", {
+      const response = await fetch("/api/ListResults", {
         method: "GET",
       });
       const data = await response.json();
       if (data) {
+        data.forEach((experiment: any) => {
+          experiment.isHumanFirst = Math.random() >= 0.5;
+          experiment.guessSuccess = "";
+        });
         setResponseMessage(data);
       }
     }
@@ -17,39 +23,75 @@ export default function ListWords() {
     fetchData();
   }, []);
 
-  async function submit(e: SubmitEvent) {
+  async function submit(e: MouseEvent, item: any, judgement: string) {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const response = await fetch("/api/ListHumanResults", {
+    console.log(e);
+    
+    const guess = {
+      ID: uuidv4(), // Generate a new GUID
+      DateLogged: new Date(),
+      HumanWord: item.humanWord,
+      AIWord: item.aiWord,
+      SelectedJudgement: judgement
+    }
+    
+    const response = await fetch("/api/SubmitGuess", {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(guess),
     });
     const data = await response.json();
-    if (data.message) {
-      setResponseMessage(data.message);
+    if (data) {
+      setResponseMessage(data);
     }
   }
 
   return (
-    <div>
-    <form onSubmit={submit}>
-      <label>
-        Message
-        <textarea id="message" name="message" required />
-      </label>
-      <button>Send</button>
-    </form>
+  
+    
     <div>
       {responseMessage.length > 0 ? (
-        <ul>
-          {responseMessage.map((item, index) => (
-            <li key={index}>{JSON.stringify(item)}</li>
-          ))}
-        </ul>
+        <ul className="judge-items">
+        {responseMessage.length > 0 ? (
+          responseMessage.map((item, index) => {
+            return (
+              <li key={index}>
+                <a
+                  className={(hoveredItemId == "index" + index.toString() + "1") ? "judge-item-selected" : "judge-item"}
+                  onMouseOver={() => setHoveredItemId("index" + index.toString() + "1")}
+                  onMouseOut={() => setHoveredItemId("not set")}
+                  onClick={(e) => {
+                    item.isHumanFirst ? item.guessSuccess = "Correct, you spotted the human word" : "Incorrect, that was the AI Word";
+                    submit(e, item, item.isHumanFirst ? "Human" : "AI");
+                  }}
+                >
+                  {item.isHumanFirst ? item.humanWord : item.aiWord}
+                </a>
+                {" vs "}
+                <a
+                  className={(hoveredItemId == "index" + index.toString() + "2") ? "judge-item-selected" : "judge-item"}
+                  onMouseOver={() => setHoveredItemId("index" + index.toString() + "2")}
+                  onMouseOut={() => setHoveredItemId("not set")}
+                  onClick={(e) => {
+                    item.isHumanFirst ? item.guessSuccess = "Incorrect, that was the AI Word" : "Correct, you spotted the human word";
+                    submit(e, item, item.isHumanFirst ? "AI" : "Human");
+                  }}
+                >
+                  {item.isHumanFirst ? item.aiWord : item.humanWord}
+                </a>
+                <div>{item.guessSuccess}</div>
+              </li>
+            );
+          })
+        ) : (
+          <li>No results found</li>
+        )}
+      </ul>
       ) : (
-        <p>No results found</p>
+        <p>Loading results</p>
       )}
     </div>
-  </div>
   );
 }

@@ -6,18 +6,18 @@ export default function SubmitWord() {
   async function submit(e: SubmitEvent) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const message = formData.get("message");
+    const HumanWord = formData.get("HumanWord");
     
     const response = await fetch("/api/SubmitWord", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ HumanWord }),
     });
     const data = await response.json();
-    if (data.message) {
-      setResponseMessage(data.message);
+    if (data) {
+      setResponseMessage(data);
     }
   }
 
@@ -25,8 +25,9 @@ export default function SubmitWord() {
     <form onSubmit={submit}>
       <label>
         Message
-        <textarea id="message" name="message" required />
+        <textarea id="HumanWord" name="HumanWord" required />
       </label>
+      <br/>
       <button>Send</button>
       {responseMessage && <p>{responseMessage}</p>}
     </form>
