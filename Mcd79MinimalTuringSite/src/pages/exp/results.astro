@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import ListResults from "../../components/ListResults"
+---
+
+<BaseLayout
+	title="Judge the words"
+	description="For existing submissions, judge which ones you think are human or AI generated."
+>
+	<div class="stack gap-20">
+		<main class="wrapper stack gap-8">
+			<Hero
+				title="Judge the words"
+				tagline="For existing submissions, judge which ones you think are human or AI generated. Click on the one you believe to be human and see if you were correct."
+				align="start"
+			/>
+			<ListResults client:load />
+		</main>
+	</div>
+</BaseLayout>

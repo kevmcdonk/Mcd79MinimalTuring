@@ -32,7 +32,7 @@ export default function ListWords() {
       DateLogged: new Date(),
       HumanWord: item.humanWord,
       AIWord: item.aiWord,
-      SelectedJudgement: judgement
+      Guess: judgement
     }
     
     const response = await fetch("/api/SubmitGuess", {
