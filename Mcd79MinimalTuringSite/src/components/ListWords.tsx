@@ -1,5 +1,6 @@
 import { useState, useEffect } from "preact/hooks";
 import { v4 as uuidv4 } from 'uuid';
+import Pill from './Pill.astro';
 
 export default function ListWords() {
   const [responseMessage, setResponseMessage] = useState<any[]>([]);
@@ -49,9 +50,9 @@ export default function ListWords() {
   }
 
   return (
-  
-    
-    <div>
+
+      <div>
+        Hello
       {responseMessage.length > 0 ? (
         <ul className="judge-items">
         {responseMessage.length > 0 ? (
@@ -69,6 +70,7 @@ export default function ListWords() {
                 >
                   {item.isHumanFirst ? item.humanWord : item.aiWord}
                 </a>
+                <Pill>Developer</Pill>
                 {" vs "}
                 <a
                   className={(hoveredItemId == "index" + index.toString() + "2") ? "judge-item-selected" : "judge-item"}
@@ -92,6 +94,6 @@ export default function ListWords() {
       ) : (
         <p>Loading results</p>
       )}
-    </div>
+      </div>
   );
 }

@@ -29,7 +29,7 @@ jobs:
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/Mcd79MinimalTuringSite" # App source code path
-          api_location: "" # Api source code path - set to use local API as /Mcd79MinimalTuringSite/api
+          api_location: "/Mcd79MinimalTuringSite/api" # Api source code path - set to use local API as 
           output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
