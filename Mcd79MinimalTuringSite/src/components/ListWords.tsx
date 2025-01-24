@@ -5,6 +5,9 @@ import Pill from './Pill.astro';
 export default function ListWords() {
   const [responseMessage, setResponseMessage] = useState<any[]>([]);
   const [hoveredItemId, setHoveredItemId] = useState<string | null>("not set");
+  const [selectedItemId, setSelectedItemId] = useState<string | null>("not set");
+  let itemOneClassName = "pill";
+  let itemTwoClassName = "pill";
 
   useEffect(() => {
     async function fetchData() {
@@ -16,6 +19,7 @@ export default function ListWords() {
         data.forEach((experiment: any) => {
           experiment.isHumanFirst = Math.random() >= 0.5;
           experiment.guessSuccess = "";
+          console.log(experiment);
         });
         setResponseMessage(data);
       }
@@ -43,46 +47,66 @@ export default function ListWords() {
       },
       body: JSON.stringify(guess),
     });
-    const data = await response.json();
-    if (data) {
-      setResponseMessage(data);
-    }
+    const data = await response;
+
+    let itemOneClassName = "pill";
+    let itemTwoClassName = "pill";
+    setSelectedItemId("not set");
   }
 
   return (
-
       <div>
-        Hello
       {responseMessage.length > 0 ? (
-        <ul className="judge-items">
+        <div>Responses exist
+        <ul class="grid small">
         {responseMessage.length > 0 ? (
           responseMessage.map((item, index) => {
+            
+            if (hoveredItemId == "index" + index.toString() + "1") {
+              itemOneClassName = "pill-selected";
+            } else if (selectedItemId == "selectedIndex" + index.toString() + "1") {
+              itemOneClassName = "pill-picked";
+            }
+            else {
+              itemOneClassName = "pill";
+            }
+
+            if (hoveredItemId == "index" + index.toString() + "2") {
+              itemTwoClassName = "pill-selected";
+            } else if (selectedItemId == "selectedIndex" + index.toString() + "2") {
+              itemTwoClassName = "pill-picked";
+            }
+            else {
+              itemTwoClassName = "pill";
+            }
             return (
               <li key={index}>
-                <a
-                  className={(hoveredItemId == "index" + index.toString() + "1") ? "judge-item-selected" : "judge-item"}
+                <div 
+                  className={itemOneClassName}
                   onMouseOver={() => setHoveredItemId("index" + index.toString() + "1")}
                   onMouseOut={() => setHoveredItemId("not set")}
                   onClick={(e) => {
-                    item.isHumanFirst ? item.guessSuccess = "Correct, you spotted the human word" : "Incorrect, that was the AI Word";
+                    setSelectedItemId("selectedIndex" + index.toString() + "1");
+                    item.isHumanFirst ? item.guessSuccess = "Correct, you spotted the human word" : item.guessSuccess = "Incorrect, that was the AI Word";
                     submit(e, item, item.isHumanFirst ? "Human" : "AI");
                   }}
                 >
-                  {item.isHumanFirst ? item.humanWord : item.aiWord}
-                </a>
-                <Pill>Developer</Pill>
-                {" vs "}
-                <a
-                  className={(hoveredItemId == "index" + index.toString() + "2") ? "judge-item-selected" : "judge-item"}
+                  <slot>{item.isHumanFirst ? item.humanWord : item.aiWord}</slot>
+                </div>
+                <div className={"centred"}>
+                  vs
+                </div>
+                <div 
+                  className={itemTwoClassName}
                   onMouseOver={() => setHoveredItemId("index" + index.toString() + "2")}
                   onMouseOut={() => setHoveredItemId("not set")}
                   onClick={(e) => {
-                    item.isHumanFirst ? item.guessSuccess = "Incorrect, that was the AI Word" : "Correct, you spotted the human word";
+                    item.isHumanFirst ? item.guessSuccess = "Correct, you spotted the human word" : item.guessSuccess = "Incorrect, that was the AI Word";
                     submit(e, item, item.isHumanFirst ? "AI" : "Human");
                   }}
                 >
-                  {item.isHumanFirst ? item.aiWord : item.humanWord}
-                </a>
+                  <slot>{item.isHumanFirst ? item.aiWord : item.humanWord}</slot>
+                </div>
                 <div>{item.guessSuccess}</div>
               </li>
             );
@@ -90,7 +114,7 @@ export default function ListWords() {
         ) : (
           <li>No results found</li>
         )}
-      </ul>
+      </ul></div>
       ) : (
         <p>Loading results</p>
       )}

@@ -224,6 +224,114 @@ h5 {
 	border-width: 0;
 }
 
+.centred {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+  }
+
+.pill {
+	display: flex;
+	padding: 0.5rem 1rem;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	color: var(--accent-text-over);
+	border: 1px solid var(--accent-subtle-overlay);
+	background-color: var(--accent-subtle-overlay);
+	border-radius: 999rem;
+	font-size: var(--text-md);
+	line-height: 1.35;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.pill-selected {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem 1rem;
+	gap: 0.5rem;
+	color: var(--accent-regular);
+	border: 1px solid var(--accent-text-over);
+	background-color: var(--accent-text-over);
+	border-radius: 999rem;
+	font-size: var(--text-md);
+	line-height: 1.35;
+	white-space: nowrap;
+	text-align: center;
+}
+
+
+.pill-picked {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem 1rem;
+	gap: 0.5rem;
+	color: var(--accent-text-over);
+	border: 1px solid var(--accent-regular);
+	background-color: var(--accent-regular);
+	border-radius: 999rem;
+	font-size: var(--text-md);
+	line-height: 1.35;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.grid {
+	display: grid;
+	grid-auto-rows: 1fr;
+	gap: 1rem;
+	list-style: none;
+	padding: 0;
+}
+
+.grid.small {
+	grid-template-columns: 1fr 1fr;
+	gap: 1.5rem;
+}
+
+/* If last row contains only one item, make it span both columns. */
+.grid.small > :global(:last-child:nth-child(odd)) {
+	grid-column: 1 / 3;
+}
+
+@media (min-width: 50em) {
+	.grid {
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+	}
+
+	.grid.offset {
+		--row-offset: 7.5rem;
+		padding-bottom: var(--row-offset);
+	}
+
+	/* Shift first item in each row vertically to create staggered effect. */
+	.grid.offset > :global(:nth-child(odd)) {
+		transform: translateY(var(--row-offset));
+	}
+
+	/* If last row contains only one item, display it in the second column. */
+	.grid.offset > :global(:last-child:nth-child(odd)) {
+		grid-column: 2 / 3;
+		transform: none;
+	}
+
+	.grid.small {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 2rem;
+	}
+
+	.grid.small > :global(*) {
+		flex-basis: 20rem;
+	}
+}
+
 .wrapper {
 	width: 100%;
 	max-width: 83rem;
