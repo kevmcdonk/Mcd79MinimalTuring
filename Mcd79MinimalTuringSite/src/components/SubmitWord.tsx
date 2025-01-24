@@ -15,20 +15,18 @@ export default function SubmitWord() {
       },
       body: JSON.stringify({ HumanWord }),
     });
-    const data = await response.json();
-    if (data) {
-      setResponseMessage(data);
-    }
+    const data = await response;
+    setResponseMessage("Word submitted - thanks! Now jump over and judge the most human word.");
   }
 
   return (
     <form onSubmit={submit}>
       <label>
-        Message
-        <textarea id="HumanWord" name="HumanWord" required />
+        <input id="HumanWord" name="HumanWord" required />
       </label>
       <br/>
-      <button>Send</button>
+      <button className={"pill"}>Send</button>
+
       {responseMessage && <p>{responseMessage}</p>}
     </form>
   );
