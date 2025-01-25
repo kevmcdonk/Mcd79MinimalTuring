@@ -57,7 +57,7 @@ export default function ListWords() {
   return (
       <div>
       {responseMessage.length > 0 ? (
-        <div>Responses exist
+        <div>
         <ul class="grid small">
         {responseMessage.length > 0 ? (
           responseMessage.map((item, index) => {

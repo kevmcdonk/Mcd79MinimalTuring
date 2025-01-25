@@ -6,6 +6,9 @@ export default function ListResults() {
   const [correctCount, setCorrectCount] = useState<number>(0);
   const [wrongCount, setWrongCount] = useState<number>(0);
 
+  let itemOneClassName = "pill";
+  let itemTwoClassName = "pill";
+
   useEffect(() => {
     async function fetchData() {
       const response = await fetch("/api/ListJudgements", {
@@ -38,28 +41,37 @@ export default function ListResults() {
 
 
   return (
-  
     <div>
       <div>Correct: {correctCount}, Wrong: {wrongCount}</div>
+    {responseMessage.length > 0 ? (
+      <div>
+      <ul class="grid small">
       {responseMessage.length > 0 ? (
-        
-        <ul>
-        {responseMessage.length > 0 ? (
-          responseMessage.map((item, index) => {
-            return (
-              <li key={index}>
-                
-                <div>{item.dateLogged} - Human: {item.humanWord} vs AI: {item.aiWord}. User guessed {item.guess == 0 ? "Correct": "Wrong"}</div>
-              </li>
-            );
-          })
-        ) : (
-          <li>No results found</li>
-        )}
-      </ul>
+        responseMessage.map((item, index) => {
+          
+          
+          return (
+            <li key={index}>
+              <div>{item.dateLogged}</div>
+              <div className={item.guess == 0 ? "pill-selected": "pill"}>
+                <slot>{item.humanWord}</slot>
+              </div>
+              <div className={"centred"}>
+                vs
+              </div>
+              <div className={item.guess == 0 ? "pill": "pill-selected"}>
+                <slot>{item.aiWord}</slot>
+              </div>
+            </li>
+          );
+        })
       ) : (
-        <p>Loading results</p>
+        <li>No results found</li>
       )}
+    </ul></div>
+    ) : (
+      <p>Loading results</p>
+    )}
     </div>
-  );
+);
 }
