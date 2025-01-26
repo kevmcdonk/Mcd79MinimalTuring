@@ -1,5 +1,6 @@
 import { useState, useEffect } from "preact/hooks";
 import { v4 as uuidv4 } from 'uuid';
+import Counts from './Counts';
 
 export default function ListResults() {
   const [responseMessage, setResponseMessage] = useState<any[]>([]);
@@ -8,6 +9,14 @@ export default function ListResults() {
 
   let itemOneClassName = "pill";
   let itemTwoClassName = "pill";
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -42,9 +51,9 @@ export default function ListResults() {
 
   return (
     <div>
-      <div>Correct: {correctCount}, Wrong: {wrongCount}</div>
     {responseMessage.length > 0 ? (
       <div>
+        <Counts correctCount={correctCount} wrongCount={wrongCount}></Counts>
       <ul class="grid small">
       {responseMessage.length > 0 ? (
         responseMessage.map((item, index) => {
@@ -52,7 +61,7 @@ export default function ListResults() {
           
           return (
             <li key={index}>
-              <div>{item.dateLogged}</div>
+              <div>{new Date(item.dateLogged).toLocaleDateString('en-gb', options)}</div>
               <div className={item.guess == 0 ? "pill-selected": "pill"}>
                 <slot>{item.humanWord}</slot>
               </div>
