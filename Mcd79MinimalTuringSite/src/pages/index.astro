@@ -31,13 +31,25 @@ const projects = (await getCollection('work'))
 			<header class="hero">
 				<Hero
 					title="Mcd79 Minimal Turing Experiment"
-					tagline="Investigating whether humans can detect AI and AI can detect AI from a single word"
+					tagline="Investigating whether humans can detect AI and AI can detect AI from a single word. Get involved with three simple steps."
 					align="start"
 				>
 					<div class="roles">
-						<Pill><Icon icon="code" size="1.33em" /> Submit word</Pill>
-						<Pill><Icon icon="microphone-stage" size="1.33em" /> Judge experiments</Pill>
-						<Pill><Icon icon="pencil-line" size="1.33em" /> View results</Pill>
+						<Pill><a href="/exp/submit" class="link" aria-current={'page'}><Icon icon="code" size="1.33em" /> 1. Submit word</a></Pill>
+						<Pill><a href="/exp/judge" class="link" aria-current={'page'}><Icon icon="microphone-stage" size="1.33em" /> 2. Judge others</a></Pill>
+						<Pill><a href="/exp/results" class="link" aria-current={'page'}><Icon icon="pencil-line" size="1.33em" /> 3. View results</a></Pill>
+					</div>
+					<div class="hero-content">
+						<br/>
+						<h3>Path to awesome</h3>
+						<br />
+						<ul>
+							<li>Log in using a Microsoft account just to prevent abuse of the platform.</li>
+							<li>Submit a word that you believe best represents humanity.</li>
+							<li>Once submitted, a flow runs to get an Azure Open AI hosted model to generate a word too.</li>
+							<li>Flip to the Judge tab to see if you can spot the human word from the AI word.</li>
+							<li>See the overall results of how well people can identify AI from a single word.</li>
+						</ul>
 					</div>
 				</Hero>
 
@@ -67,6 +79,9 @@ const projects = (await getCollection('work'))
 					</p>
 					<p>
 						Learn more about the Minimal Turing Test below.
+					</p>
+					<p>
+						Over time, this will be enhanced to see how other system prompts and other models perform in the Minimal Turing Test. It will also start to look at how well AI can judge in the future.
 					</p>
 				</div>
 			</section>

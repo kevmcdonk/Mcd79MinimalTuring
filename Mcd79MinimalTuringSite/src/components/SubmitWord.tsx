@@ -21,11 +21,14 @@ export default function SubmitWord() {
 
   return (
     <form onSubmit={submit}>
-      <label>
-        <input id="HumanWord" name="HumanWord" required />
+      <br />
+      <label class="centred">
+        <input id="HumanWord" name="HumanWord" class="index-submit" required />
       </label>
       <br/>
-      <button className={"pill"}>Send</button>
+      <div class="centred">
+        <button class="pill-send">Send</button>
+      </div>
 
       {responseMessage && <p>{responseMessage}</p>}
     </form>
