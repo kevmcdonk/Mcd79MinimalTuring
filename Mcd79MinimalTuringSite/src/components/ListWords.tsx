@@ -101,7 +101,7 @@ export default function ListWords() {
                   onMouseOver={() => setHoveredItemId("index" + index.toString() + "2")}
                   onMouseOut={() => setHoveredItemId("not set")}
                   onClick={(e) => {
-                    item.isHumanFirst ? item.guessSuccess = "Correct, you spotted the human word" : item.guessSuccess = "Incorrect, that was the AI Word";
+                    item.isHumanFirst ? item.guessSuccess = "Incorrect, that was the AI Word" : item.guessSuccess = "Correct, you spotted the human word";
                     submit(e, item, item.isHumanFirst ? "AI" : "Human");
                   }}
                 >
