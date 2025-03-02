@@ -58,7 +58,13 @@ export default function ListResults() {
       {responseMessage.length > 0 ? (
         responseMessage.map((item, index) => {
           
-          
+          if (item.humanWord.startsWith("\"")) {
+            item.humanWord = item.humanWord.substring(1, item.humanWord.length - 1);
+          }
+
+          if (item.aiWord.startsWith("\"")) {
+            item.aiWord = item.aiWord.substring(1, item.aiWord.length - 1);
+          }
           return (
             <li key={index}>
               <div>{new Date(item.dateLogged).toLocaleDateString('en-gb', options)}</div>

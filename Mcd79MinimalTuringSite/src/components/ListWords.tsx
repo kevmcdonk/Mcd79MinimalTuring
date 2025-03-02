@@ -61,6 +61,13 @@ export default function ListWords() {
         <ul class="grid small">
         {responseMessage.length > 0 ? (
           responseMessage.map((item, index) => {
+            if (item.humanWord.startsWith("\"")) {
+              item.humanWord = item.humanWord.substring(1, item.humanWord.length - 1);
+            }
+
+            if (item.aiWord.startsWith("\"")) {
+              item.aiWord = item.aiWord.substring(1, item.aiWord.length - 1);
+            }
             
             if (hoveredItemId == "index" + index.toString() + "1") {
               itemOneClassName = "pill-selected";
